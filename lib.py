@@ -1,7 +1,7 @@
 import subprocess
 from hashlib import sha256
-from Crypto.Hash import RIPEMD160
 from mnemonic import Mnemonic
+
 
 def xor_hex_strings(str1, str2):
     """
@@ -52,9 +52,7 @@ def get_entropy(length):
         "xxd -l {} -p /dev/random".format(length), shell=True)
     seed = seed.decode('ascii').replace('\n', '')
     
-
     return seed
-
 
 
 def validate_dice_seed(dice, min_length):
@@ -143,20 +141,11 @@ def read_mnemonic_interactive():
     return mnemonic
 
 
-
 def unchunk(string):
     """
     Remove spaces in string
     """
     return string.replace(" ", "")
-
-
-def chunk_string(string, length):
-    """
-    Splits a string into chunks of [length] characters, for easy human readability
-    Source: https://stackoverflow.com/a/18854817/11031317
-    """
-    return (string[0+i:length+i] for i in range(0, len(string), length))
 
 
 def hash_sha256(s):

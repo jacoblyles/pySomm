@@ -1,0 +1,7 @@
+asn1crypto==1.5.1
+base58==2.1.1
+bip32==3.4
+cffi==1.15.1
+coincurve==18.0.0
+mnemonic==0.20
+pycparser==2.21

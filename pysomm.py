@@ -3,18 +3,17 @@ import sys
 from mnemonic import Mnemonic
 from bip32 import BIP32
 from bech32 import encode as bech32_encode
-from Crypto.Hash import RIPEMD160
+import hashlib
+import secrets
 from hashlib import sha256
-from lib import xor_hex_strings, get_entropy, safety_checklist, read_dice_seed_interactive, hash_sha256, \
+from lib import xor_hex_strings, safety_checklist, read_dice_seed_interactive, hash_sha256, \
 read_mnemonic_interactive
 
-
-PRIVATE = None
 
 def generate_mnemonic(entropy):
     if not entropy:
         entropy = read_dice_seed_interactive()
-    computer_entropy = get_entropy(20) # 160 bits of entropy
+    computer_entropy = secrets.token_hex(20) # 160 bits of entropy
     total_entropy = xor_hex_strings(hash_sha256(entropy), hash_sha256(computer_entropy))
     mnemonic = Mnemonic('english').to_mnemonic(bytes.fromhex(total_entropy))
     return mnemonic
@@ -47,9 +46,7 @@ def return_addresses(words, idx=None):
 
 def bech32_for_pubkey(pubkey, hrp="somm"):
     shad = sha256(bytes.fromhex(pubkey)).digest()
-    ripe = RIPEMD160.new()
-    ripe.update(shad)
-    riped = ripe.digest()
+    riped = hashlib.new("ripemd160", shad).digest()
     return bech32_encode(hrp, 0, riped)
     
 
@@ -78,6 +75,7 @@ def interactive_loop():
             sys.exit()
         else:
             print("Invalid choice. Please try again.")
+
 
 def main():
     parser = argparse.ArgumentParser(description="BIP39 Mnemonic Tool")

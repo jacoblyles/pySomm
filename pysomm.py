@@ -91,7 +91,7 @@ def main():
     if args.entropy:
         try:
             if len(args.entropy) < 20:
-                raise ValueError("Entropy must be at least 20 hex chars long")
+                raise ValueError("Entropy must be at least 20 hex characters long")
         except ValueError as e:
             print(f"Error: {e}")
             sys.exit(1)

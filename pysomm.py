@@ -103,7 +103,7 @@ def interactive_loop():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="BIP39 Mnemonic Tool")
+    parser = argparse.ArgumentParser(description="BIP39 Mnemonic Tool for Sommelier Network")
     parser.add_argument("--genseed", action="store_true", help="Output a new BIP39 mnemonic")
     parser.add_argument("--entropy", metavar="ENTROPY", type=str, help="[optional] Provide external entropy as a 32-byte hexadecimal string")
     

@@ -12,7 +12,8 @@ read_mnemonic_interactive
 
 def generate_mnemonic(entropy=None):
     """
-    Generates a BIP39 mnemonic. Optionally takes a hexadecimal string as entropy.
+    entropy: <string> hex string of entropy
+    Generates a BIP39 mnemonic. Optionally takes an entropy string.
     If no entropy is provided, the user will be prompted to roll dice for 160 bits of entropy.
     returns => <string> mnemonic
     """
@@ -26,6 +27,7 @@ def generate_mnemonic(entropy=None):
 
 def seed_from_bip39(words):
     """
+    words: <string> BIP39 mnemonic
     Generates the wallet seed for the given BIP39 mnemonic
     returns => <bytearray> seed
     """
@@ -37,7 +39,6 @@ def address_num(seed, idx):
     """
     seed: <bytearray> seed
     idx: <int> index of address
-
     Returns the bech32 address for the given wallet seed and idx, 
     at the derivation path "m/44'/118'/0'/0/[idx]"
     returns => <string> bech32 address

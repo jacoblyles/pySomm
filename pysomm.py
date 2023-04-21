@@ -10,7 +10,12 @@ from lib import xor_hex_strings, safety_checklist, read_dice_seed_interactive, h
 read_mnemonic_interactive
 
 
-def generate_mnemonic(entropy):
+def generate_mnemonic(entropy=None):
+    """
+    Generates a BIP39 mnemonic. Optionally takes a hexadecimal string as entropy.
+    If no entropy is provided, the user will be prompted to roll dice for 160 bits of entropy.
+    returns => <string> mnemonic
+    """
     if not entropy:
         entropy = read_dice_seed_interactive()
     computer_entropy = secrets.token_hex(20) # 160 bits of entropy
@@ -20,14 +25,22 @@ def generate_mnemonic(entropy):
 
 
 def seed_from_bip39(words):
+    """
+    Generates the wallet seed for the given BIP39 mnemonic
+    returns => <bytearray> seed
+    """
     seed = Mnemonic('english').to_entropy(words)
     return seed
 
 
 def address_num(seed, idx):
     """
-    Returns the bech32 address for the given index, 
+    seed: <bytearray> seed
+    idx: <int> index of address
+
+    Returns the bech32 address for the given wallet seed and idx, 
     at the derivation path "m/44'/118'/0'/0/[idx]"
+    returns => <string> bech32 address
     """
     wallet = BIP32.from_seed(seed)
     pub_key = wallet.get_pubkey_from_path("m/44'/118'/0'/0/{}".format(idx)).hex()
@@ -36,6 +49,11 @@ def address_num(seed, idx):
 
 
 def return_addresses(words, idx=None):
+    """
+    words: <string> BIP39 mnemonic
+    idx: <int> index of address
+    Prints the first 5 addresses for the given BIP39 mnemonic, or the address at the given index
+    """
     seed = seed_from_bip39(words)
     if not idx:
         for i in range(5):
@@ -45,6 +63,12 @@ def return_addresses(words, idx=None):
 
 
 def bech32_for_pubkey(pubkey, hrp="somm"):
+    """
+    pubkey: <string> hex string of public key
+    hrp: <string> human readable part of bech32 address
+    Returns the bech32 address for the given raw public key. 
+    See https://en.bitcoin.it/wiki/Bech32
+    """
     shad = sha256(bytes.fromhex(pubkey)).digest()
     riped = hashlib.new("ripemd160", shad).digest()
     return bech32_encode(hrp, 0, riped)

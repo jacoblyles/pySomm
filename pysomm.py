@@ -105,10 +105,10 @@ def interactive_loop():
 def main():
     parser = argparse.ArgumentParser(description="BIP39 Mnemonic Tool")
     parser.add_argument("--genseed", action="store_true", help="Output a new BIP39 mnemonic")
-    parser.add_argument("--entropy", metavar="ENTROPY", type=str, help="Provide external entropy as a 32-byte hexadecimal string")
+    parser.add_argument("--entropy", metavar="ENTROPY", type=str, help="[optional] Provide external entropy as a 32-byte hexadecimal string")
     
     parser.add_argument("--addresses", metavar="MNEMONIC", type=str, help="Return first 5 addresses from BIP39 mnemonic")
-    parser.add_argument("--idx", metavar="index", type=int, help="Return address at specific index")
+    parser.add_argument("--idx", metavar="index", type=int, help="[optional] Return address at specific index")
     
     parser.add_argument("--login", action="store_true", help="login to your wallet with a mnemonic")
     args = parser.parse_args()

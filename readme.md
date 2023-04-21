@@ -25,7 +25,9 @@ These steps are important to eliminate side channels that an attacker can use to
 
 ## Room Shielding
 
-Any operations involving your seed phrase should be conducted in a room shielded against electromagnetic radiation. If such a room cannot be procured on an immediate basis, a large box covered in aluminum foil should suffice.
+Any operations involving your seed phrase should be conducted in a room shielded against electromagnetic radiation. If such a room cannot be procured on an immediate basis, a large box covered in aluminum foil should suffice. This is to protect against [Van Eck phreaking](https://en.wikipedia.org/wiki/Van_Eck_phreaking), which allows attacker being able to read your screen at a distance. 
+
+The room should have thick walls and be free of microphones to protect against [accoustic attacks](https://www.independent.co.uk/tech/cyber-security-passwords-hackers-a9070411.html). It is wise to run a white noise generator for the duration of the operations.
 
 
 # Installation
